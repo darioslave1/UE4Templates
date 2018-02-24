@@ -3,6 +3,7 @@
 #include "FPSProjectile.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Components/SphereComponent.h"
+#include "Components/PawnNoiseEmitterComponent.h"
 
 AFPSProjectile::AFPSProjectile() 
 {
@@ -39,6 +40,11 @@ void AFPSProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPr
 	{
 		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
 
-		Destroy();
 	}
+
+	//Make Noise to be Heared
+	//Instigator must to be set in Projectile Spawn
+	MakeNoise(1.f, Instigator, GetActorLocation());
+
+	Destroy();
 }
